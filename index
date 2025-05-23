@@ -1,0 +1,1639 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>קטלוג מוצרים | ח.סבן חומרי בניין וחישובי כמויות</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0066cc;
+            --secondary: #0099ff;
+            --accent: #ff6600;
+            --background: #f5f9ff;
+            --text: #003366;
+            --glass: rgba(255, 255, 255, 0.95);
+            --glass-dark: rgba(0, 51, 102, 0.9);
+            --shadow: 0 8px 32px rgba(0, 51, 102, 0.15);
+            --border: 1px solid rgba(255, 255, 255, 0.3);
+            --neon-blue: #00ccff;
+            --brand-sika: #ffcc00;
+            --brand-termokir: #0056b3;
+            --brand-tambour: #e30613;
+            --brand-nirlat: #009640;
+            --brand-kremit: #6a3b9a;
+            --glow: 0 0 15px rgba(0, 204, 255, 0.5);
+            --whatsapp: #25D366;
+            --error: #e74c3c;
+            --success: #2ecc71;
+            --warning: #f39c12;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #e6f0ff 0%, #cce0ff 100%);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        /* עיצוב לוגו ופרטי סניפים */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            background-image: url('https://i.postimg.cc/NjhWzHjM/1000101077.jpg');
+            background-size: cover;
+            border-radius: 50%;
+            border: 3px solid var(--neon-blue);
+            box-shadow: var(--glow);
+            animation: float 4s ease-in-out infinite;
+            flex-shrink: 0;
+        }
+
+        .branch-info {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: var(--shadow);
+            border: var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 300px;
+            transition: transform 0.3s;
+        }
+
+        .branch-info:hover {
+            transform: translateY(-5px);
+        }
+
+        .branch-info h3 {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .branch-info p {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+
+        .branch-info a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .branch-info a:hover {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+
+        .branch-info i {
+            width: 20px;
+            color: var(--secondary);
+        }
+
+        .branch-selector {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .branch-btn {
+            padding: 8px 12px;
+            background: rgba(0,102,204,0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+            border: 1px solid rgba(0,102,204,0.2);
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .branch-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-color: var(--primary);
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* עיצוב כותרת */
+        .header {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            margin-bottom: 2rem;
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            box-shadow: var(--shadow), inset 0 0 20px rgba(255,255,255,0.5);
+            border: var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0,102,204,0.05) 0%, rgba(0,102,204,0.1) 100%);
+            z-index: -1;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            text-shadow: 0 2px 10px rgba(0,102,204,0.2);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            display: inline-block;
+            padding: 0 15px;
+        }
+
+        .header h1::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 20%;
+            width: 60%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+            border-radius: 50%;
+            filter: blur(1px);
+        }
+
+        /* עיצוב חיפוש */
+        .search-container {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: 50px;
+            border: 2px solid rgba(0,102,204,0.2);
+            font-size: 1.1rem;
+            background: var(--glass);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.4s;
+            backdrop-filter: blur(5px);
+            color: var(--text);
+        }
+
+        #searchInput:focus {
+            outline: none;
+            box-shadow: 0 5px 25px rgba(0,102,204,0.3);
+            transform: translateY(-3px);
+            border-color: var(--neon-blue);
+        }
+
+        /* עיצוב כפתורי מותגים */
+        .brands-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 2rem auto;
+            max-width: 1000px;
+            padding: 10px;
+        }
+
+        .brand-btn {
+            width: 80px;
+            height: 80px;
+            border-radius: 18px;
+            background-size: 60%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            border: 2px solid rgba(0,102,204,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0,102,204,0.1) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .brand-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 25px rgba(0,102,204,0.2);
+        }
+
+        .brand-btn:hover::after {
+            opacity: 1;
+        }
+
+        .brand-btn.active {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 20px var(--neon-blue);
+            transform: translateY(-3px);
+        }
+
+        /* עיצוב קטגוריות */
+        .category-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin: 2rem 0;
+            padding: 10px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .category-buttons::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-btn {
+            background: var(--glass);
+            border: none;
+            color: var(--primary);
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            border: var(--border);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .category-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s;
+            border-radius: 50px;
+        }
+
+        .category-btn:hover, .category-btn.active {
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(0,102,204,0.3);
+        }
+
+        .category-btn:hover::before, .category-btn.active::before {
+            opacity: 1;
+        }
+
+        .category-btn i {
+            font-size: 18px;
+        }
+
+        /* עיצוב כרטיסי מוצרים */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem;
+        }
+
+        .product-card {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: pointer;
+            border: var(--border);
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0,102,204,0.05) 0%, transparent 100%);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        .product-card:hover::before {
+            opacity: 1;
+        }
+
+        .product-card .product-image {
+            height: 180px;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin: -1.5rem -1.5rem 1rem -1.5rem;
+            background-color: #f8f9fa;
+            border-radius: 15px 15px 0 0;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.03);
+        }
+
+        .product-card .product-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .product-card .product-name::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--neon-blue);
+            border-radius: 2px;
+            transition: width 0.3s;
+        }
+
+        .product-card:hover .product-name::after {
+            width: 60px;
+        }
+
+        .product-card .product-category {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 3px 8px rgba(0,102,204,0.2);
+            align-self: flex-start;
+        }
+
+        .product-card .product-specs {
+            margin-bottom: 1.2rem;
+            flex-grow: 1;
+        }
+
+        .product-card .product-spec {
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+        }
+
+        .product-card .product-spec i {
+            width: 20px;
+            color: var(--secondary);
+            margin-left: 5px;
+            font-size: 0.9rem;
+        }
+
+        .product-card .product-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 1.2rem;
+        }
+
+        .product-card .details-btn, 
+        .product-card .calc-btn,
+        .product-card .whatsapp-btn {
+            flex: 1;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 0.9rem;
+        }
+
+        .product-card .details-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 4px 12px rgba(0,102,204,0.3);
+        }
+
+        .product-card .calc-btn {
+            background: linear-gradient(135deg, var(--accent), #ff8533);
+            color: white;
+            box-shadow: 0 4px 12px rgba(255,102,0,0.3);
+        }
+
+        .product-card .whatsapp-btn {
+            background: linear-gradient(135deg, var(--whatsapp), #128C7E);
+            color: white;
+            box-shadow: 0 4px 12px rgba(37,211,102,0.3);
+        }
+
+        .product-card .details-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,102,204,0.4);
+        }
+
+        .product-card .calc-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(255,102,0,0.4);
+        }
+
+        .product-card .whatsapp-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(37,211,102,0.4);
+        }
+
+        /* עיצוב פופ-אפ */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,51,102,0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .popup-content {
+            background: var(--glass);
+            border-radius: 25px;
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 2.5rem;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border: var(--border);
+            animation: popupIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(20px);
+        }
+
+        @keyframes popupIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(0,102,204,0.1);
+            color: var(--primary);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid rgba(0,102,204,0.2);
+        }
+
+        .close-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: rotate(90deg);
+            border-color: var(--primary);
+        }
+
+        .popup-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .popup-gallery {
+            position: relative;
+        }
+
+        .main-image {
+            height: 300px;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #f8f9fa;
+            border-radius: 15px;
+            margin-bottom: 1.2rem;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .main-image:hover {
+            transform: scale(1.02);
+        }
+
+        .thumbnails {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding: 12px 0;
+            scrollbar-width: thin;
+        }
+
+        .thumbnails::-webkit-scrollbar {
+            height: 5px;
+        }
+
+        .thumbnails::-webkit-scrollbar-thumb {
+            background: rgba(0,102,204,0.3);
+            border-radius: 5px;
+        }
+
+        .thumbnail {
+            width: 70px;
+            height: 70px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+            flex-shrink: 0;
+        }
+
+        .thumbnail:hover, .thumbnail.active {
+            border-color: var(--primary);
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+
+        .popup-details {
+            padding-right: 1rem;
+        }
+
+        .popup-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 0.8rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .popup-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--neon-blue);
+            border-radius: 3px;
+        }
+
+        .popup-brand {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            box-shadow: 0 4px 12px rgba(0,102,204,0.2);
+        }
+
+        .popup-specs {
+            margin: 1.5rem 0;
+        }
+
+        .spec-item {
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+        }
+
+        .spec-item i {
+            width: 25px;
+            color: var(--secondary);
+            font-size: 1rem;
+            margin-left: 8px;
+        }
+
+        .spec-item strong {
+            min-width: 150px;
+            display: inline-block;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        /* עיצוב מחשבונים */
+        .calculator-section {
+            background: rgba(255,255,255,0.8);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            grid-column: span 2;
+            backdrop-filter: blur(10px);
+            border: var(--border);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+
+        .calculator-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.2rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .calculator-section h3 i {
+            color: var(--accent);
+        }
+
+        .calc-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 1.5rem;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            scrollbar-width: none;
+        }
+
+        .calc-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .calc-tab {
+            padding: 8px 15px;
+            background: rgba(0,102,204,0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+            flex-shrink: 0;
+        }
+
+        .calc-tab.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,102,204,0.3);
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        .calc-input-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .calc-input-container {
+            position: relative;
+        }
+
+        .calc-input-container label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+
+        .calc-input {
+            width: 100%;
+            padding: 12px 15px 12px 40px;
+            border: 2px solid rgba(0,102,204,0.2);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: rgba(255,255,255,0.9);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+            color: var(--text);
+        }
+
+        .calc-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0,102,204,0.1);
+        }
+
+        .calc-unit {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        .calc-button {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.3s;
+            margin-top: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,102,204,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calc-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .calc-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,102,204,0.4);
+        }
+
+        .calc-button:hover::after {
+            opacity: 1;
+        }
+
+        .result-box {
+            background: linear-gradient(135deg, rgba(46,204,113,0.9), rgba(39,174,96,0.9));
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 1.5rem;
+            display: none;
+            animation: fadeInUp 0.4s;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 8px 15px rgba(46,204,113,0.3);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-box p {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+        }
+
+        .result-box strong {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .result-box i {
+            font-size: 1.1rem;
+        }
+
+        /* עיצוב טופס הזמנה בווצאפ */
+        .whatsapp-form {
+            background: rgba(255,255,255,0.9);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .whatsapp-form h4 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .whatsapp-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid rgba(0,102,204,0.2);
+            border-radius: 10px;
+            min-height: 100px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            background: rgba(255,255,255,0.95);
+            color: var(--text);
+        }
+
+        .whatsapp-form textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0,102,204,0.1);
+        }
+
+        .whatsapp-submit {
+            background: linear-gradient(135deg, var(--whatsapp), #128C7E);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(37,211,102,0.2);
+        }
+
+        .whatsapp-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37,211,102,0.3);
+        }
+
+        /* עיצוב רספונסיבי */
+        @media (max-width: 1200px) {
+            .popup-body {
+                gap: 1.5rem;
+            }
+            
+            .popup-content {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .popup-body {
+                grid-template-columns: 1fr;
+            }
+            
+            .popup-details {
+                padding-right: 0;
+            }
+            
+            .main-image {
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .category-buttons, .brands-container {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 12px;
+            }
+            
+            .category-btn, .brand-btn {
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+
+            .brand-btn {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .popup-content {
+                width: 95%;
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .header {
+                padding: 1.5rem 1rem;
+            }
+            
+            .product-card {
+                padding: 1.2rem;
+            }
+            
+            .product-card .product-actions {
+                flex-direction: column;
+            }
+            
+            .spec-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+            
+            .spec-item strong {
+                min-width: 100%;
+            }
+
+            .brand-btn {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .popup-content {
+                padding: 1.2rem;
+            }
+            
+            .main-image {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="logo-container">
+            <div class="logo"></div>
+            <div class="branch-info">
+                <h3><i class="fas fa-store"></i> סניף ראשי - ח.סבן</h3>
+                <p><i class="fas fa-map-marker-alt"></i> רחוב התעשייה 15, אזור תעשייה הדרומי, אשדוד</p>
+                <p><i class="fas fa-phone"></i> <a href="tel:085088608">08-5088608</a></p>
+                <p><i class="fas fa-mobile-alt"></i> <a href="tel:0508860896">050-8860896</a></p>
+                <div class="branch-selector">
+                    <div class="branch-btn active" data-branch="main">סניף ראשי</div>
+                    <div class="branch-btn" data-branch="north">סניף צפון</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="branch-info">
+            <h3><i class="fas fa-store"></i> סניף צפון - ח.סבן</h3>
+            <p><i class="fas fa-map-marker-alt"></i> רחוב יגאל אלון 32, אזור תעשייה הצפוני, אשדוד</p>
+            <p><i class="fas fa-phone"></i> <a href="tel:086344567">08-6344567</a></p>
+            <p><i class="fas fa-mobile-alt"></i> <a href="tel:0547890123">054-7890123</a></p>
+        </div>
+    </div>
+
+    <header class="header">
+        <h1>קטלוג מוצרים של ח.סבן חומרי בניין וחישובי כמויות</h1>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="🔍 חפש מוצר...">
+        </div>
+    </header>
+
+    <div class="brands-container" id="brandsContainer">
+        <div class="brand-btn" data-brand="תרמוקיר" style="background-image: url('https://termokir.co.il/logo.png')"></div>
+        <div class="brand-btn" data-brand="סיקה" style="background-image: url('https://play-lh.googleusercontent.com/xdTqJuNYkNnqYqFK-9N9zWpH44GG7i6NPMYOn5NlbJ7nqdh9Z2cc0IQmJl6jjW9nrzw=w600-h300-pc0xffffff-pd')"></div>
+        <div class="brand-btn" data-brand="טמבור" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSagMluSgpMQuBtC1xZ_yAZKNE_rYJ3b1jJQ&usqp=CAU')"></div>
+        <div class="brand-btn" data-brand="נירלט" style="background-image: url('https://www.nirlat.co.il/wp-content/uploads/2020/07/logo.png')"></div>
+        <div class="brand-btn" data-brand="קרמיט" style="background-image: url('https://www.kremit.co.il/wp-content/uploads/2020/07/kremit-logo.png')"></div>
+        <div class="brand-btn" data-brand="כל המותגים" style="background-image: url('https://cdn-icons-png.flaticon.com/512/5662/5662990.png')"></div>
+    </div>
+
+    <div class="category-buttons">
+        <button class="category-btn active" data-category="all"><i class="fas fa-boxes"></i> הכל</button>
+        <button class="category-btn" data-category="צבעים"><i class="fas fa-paint-roller"></i> צבעים</button>
+        <button class="category-btn" data-category="איטום"><i class="fas fa-water"></i> איטום</button>
+        <button class="category-btn" data-category="טיח"><i class="fas fa-home"></i> טיח</button>
+        <button class="category-btn" data-category="דבקים"><i class="fas fa-glue"></i> דבקים</button>
+        <button class="category-btn" data-category="חול ובטון"><i class="fas fa-cubes"></i> חול ובטון</button>
+        <button class="category-btn" data-category="אריחים"><i class="fas fa-border-style"></i> אריחים</button>
+        <button class="category-btn" data-category="כלי עבודה"><i class="fas fa-tools"></i> כלי עבודה</button>
+    </div>
+
+    <div class="product-grid" id="productGrid">
+        <!-- המוצרים יוטענו כאן דינאמית -->
+    </div>
+
+    <div class="popup-overlay" id="productPopup">
+        <div class="popup-content">
+            <div class="close-btn" id="closePopup">&times;</div>
+            <div class="popup-body" id="popupBody">
+                <!-- תוכן הפופ-אפ יוטען דינאמית -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // נתוני מוצרים לדוגמה (בפועל יש לטעון משרת או קובץ JSON)
+        const products = [
+            {
+                id: 1,
+                name: "צבע אקרילי פנימי סופר ווייט",
+                brand: "טמבור",
+                category: "צבעים",
+                price: "₪89",
+                coverage: "12 מ\"ר לליטר בשכבה אחת",
+                dryingTime: "2 שעות",
+                usage: "קירות פנימיים",
+                features: ["עמידות גבוהה", "כיסוי מעולה", "ריח נמוך", "ניקוי קל"],
+                description: "צבע אקרילי איכותי לצביעת קירות פנימיים, בעל כושר כיסוי מעולה ועמידות גבוהה. מתאים לכל סוגי המשטחים הפנימיים כולל גבס, בטון וטיח.",
+                images: [
+                    "https://www.tambour.co.il/wp-content/uploads/2021/03/super-white-1.jpg",
+                    "https://www.tambour.co.il/wp-content/uploads/2021/03/super-white-2.jpg"
+                ],
+                calculators: [
+                    {
+                        type: "area",
+                        title: "מחשבון כמויות צבע",
+                        inputs: [
+                            { label: "שטח הקיר (מ\"ר)", id: "area", unit: "מ\"ר" },
+                            { label: "מספר שכבות", id: "coats", unit: "" }
+                        ],
+                        formula: (inputs) => {
+                            const area = parseFloat(inputs.area);
+                            const coats = parseInt(inputs.coats) || 2;
+                            const liters = (area / 12) * coats;
+                            return {
+                                result: `נדרשים ${liters.toFixed(1)} ליטר צבע`,
+                                details: `לצביעת ${area} מ\"ר ב-${coats} שכבות`
+                            };
+                        }
+                    }
+                ]
+            },
+            {
+                id: 2,
+                name: "איטום נוזלי פוליאוריתן",
+                brand: "סיקה",
+                category: "איטום",
+                price: "₪249",
+                coverage: "1.5 מ\"ר לליטר בשכבה אחת",
+                dryingTime: "24 שעות",
+                usage: "גגות, מרפסות, חדרים רטובים",
+                features: ["גמישות גבוהה", "עמיד למים", "אורך חיים ארוך", "התאמה למשטחי בטון"],
+                description: "איטום נוזלי מבוסס פוליאוריתן לאיטום גגות ומשטחים חיצוניים. בעל גמישות מעולה ועמידות גבוהה לתנאי מזג אוויר קיצוניים.",
+                images: [
+                    "https://www.sika.com/content/dam/dms/isr01/s/sikagard-720s/sikagard-720s-1.jpg",
+                    "https://www.sika.com/content/dam/dms/isr01/s/sikagard-720s/sikagard-720s-2.jpg"
+                ],
+                calculators: [
+                    {
+                        type: "area",
+                        title: "מחשבון כמויות איטום",
+                        inputs: [
+                            { label: "שטח המשטח (מ\"ר)", id: "area", unit: "מ\"ר" },
+                            { label: "מספר שכבות", id: "coats", unit: "" }
+                        ],
+                        formula: (inputs) => {
+                            const area = parseFloat(inputs.area);
+                            const coats = parseInt(inputs.coats) || 2;
+                            const liters = (area / 1.5) * coats;
+                            return {
+                                result: `נדרשים ${liters.toFixed(1)} ליטר חומר איטום`,
+                                details: `לאיטום ${area} מ\"ר ב-${coats} שכבות`
+                            };
+                        }
+                    }
+                ]
+            },
+            {
+                id: 3,
+                name: "טיח פנימי לבן",
+                brand: "תרמוקיר",
+                category: "טיח",
+                price: "₪35",
+                coverage: "1 מ\"ר לשקית של 25 ק\"ג",
+                dryingTime: "48 שעות",
+                usage: "קירות פנימיים",
+                features: ["התאמה למשטחי גבס", "ייבוש מהיר", "מרקם חלק", "נטול סיד"],
+                description: "טיח פנימי איכותי למשטחי גבס ובטון. בעל מרקם חלק ואיכותי, מתאים לצביעה לאחר ייבוש.",
+                images: [
+                    "https://termokir.co.il/wp-content/uploads/2021/05/tiach-pnimi-1.jpg",
+                    "https://termokir.co.il/wp-content/uploads/2021/05/tiach-pnimi-2.jpg"
+                ],
+                calculators: [
+                    {
+                        type: "area",
+                        title: "מחשבון כמויות טיח",
+                        inputs: [
+                            { label: "שטח הקיר (מ\"ר)", id: "area", unit: "מ\"ר" },
+                            { label: "עובי השכבה (מ\"מ)", id: "thickness", unit: "מ\"מ" }
+                        ],
+                        formula: (inputs) => {
+                            const area = parseFloat(inputs.area);
+                            const thickness = parseFloat(inputs.thickness) || 5;
+                            const bags = (area * thickness / 5).toFixed(1);
+                            return {
+                                result: `נדרשות ${bags} שקיות טיח`,
+                                details: `לכיסוי ${area} מ\"ר בשכבה של ${thickness} מ\"מ`
+                            };
+                        }
+                    }
+                ]
+            },
+            {
+                id: 4,
+                name: "דבק אריחים גמיש",
+                brand: "נירלט",
+                category: "דבקים",
+                price: "₪89",
+                coverage: "3 מ\"ר לשקית של 25 ק\"ג",
+                dryingTime: "24 שעות",
+                usage: "הדבקת אריחים",
+                features: ["גמישות גבוהה", "התאמה למשטחים רטובים", "עמידות למים", "הדבקה חזקה"],
+                description: "דבק אריחים גמיש בעל עמידות גבוהה לתנאי רטיבות. מתאים להדבקת אריחים בחדרי רחצה, מטבחים ומרפסות.",
+                images: [
+                    "https://www.nirlat.co.il/wp-content/uploads/2021/03/devek-arichim-1.jpg",
+                    "https://www.nirlat.co.il/wp-content/uploads/2021/03/devek-arichim-2.jpg"
+                ],
+                calculators: [
+                    {
+                        type: "area",
+                        title: "מחשבון כמויות דבק",
+                        inputs: [
+                            { label: "שטח הרצפה (מ\"ר)", id: "area", unit: "מ\"ר" },
+                            { label: "גודל האריח (ס\"מ)", id: "tileSize", unit: "ס\"מ" }
+                        ],
+                        formula: (inputs) => {
+                            const area = parseFloat(inputs.area);
+                            const tileSize = parseFloat(inputs.tileSize) || 30;
+                            const bags = (area / (tileSize > 30 ? 2.5 : 3)).toFixed(1);
+                            return {
+                                result: `נדרשות ${bags} שקיות דבק`,
+                                details: `לכיסוי ${area} מ\"ר לאריחים של ${tileSize} ס\"מ`
+                            };
+                        }
+                    }
+                ]
+            },
+            {
+                id: 5,
+                name: "בטון מוכן במשלוח",
+                brand: "קרמיט",
+                category: "חול ובטון",
+                price: "₪350 למטר מעוקב",
+                coverage: "1 מ\"ק לכ-10 מ\"ר בעובי 10 ס\"מ",
+                dryingTime: "28 ימים",
+                usage: "יציקות ויסודות",
+                features: ["איכות גבוהה", "משלוח מהיר", "התאמה לפי דרישה", "עמידות גבוהה"],
+                description: "בטון מוכן במשלוח לאתר הבנייה. ניתן להתאמה לפי דרישת הלקוח עם תוספים שונים לשיפור תכונות הבטון.",
+                images: [
+                    "https://www.kremit.co.il/wp-content/uploads/2021/04/beton-muchan-1.jpg",
+                    "https://www.kremit.co.il/wp-content/uploads/2021/04/beton-muchan-2.jpg"
+                ],
+                calculators: [
+                    {
+                        type: "volume",
+                        title: "מחשבון כמויות בטון",
+                        inputs: [
+                            { label: "אורך (מ')", id: "length", unit: "מ'" },
+                            { label: "רוחב (מ')", id: "width", unit: "מ'" },
+                            { label: "עובי (ס\"מ)", id: "thickness", unit: "ס\"מ" }
+                        ],
+                        formula: (inputs) => {
+                            const length = parseFloat(inputs.length);
+                            const width = parseFloat(inputs.width);
+                            const thickness = parseFloat(inputs.thickness) || 10;
+                            const volume = (length * width * thickness / 100).toFixed(2);
+                            const cost = (volume * 350).toFixed(0);
+                            return {
+                                result: `נדרשים ${volume} מ\"ק בטון`,
+                                details: `עלות משוערת: ₪${cost} (כולל משלוח)`
+                            };
+                        }
+                    }
+                ]
+            },
+            {
+                id: 6,
+                name: "מברשת צבע איכותית",
+                brand: "נירלט",
+                category: "כלי עבודה",
+                price: "₪25",
+                coverage: "",
+                dryingTime: "",
+                usage: "צביעה ידנית",
+                features: ["סיבים סינתטיים", "ידית נוחה", "אין נשירת סיבים", "התאמה לכל סוגי הצבע"],
+                description: "מברשת צבע איכותית עם סיבים סינתטיים שאינם נושרים. מתאימה לכל סוגי הצבעים ומאפשרת עבודה מדויקת.",
+                images: [
+                    "https://www.nirlat.co.il/wp-content/uploads/2021/03/mivreshet-1.jpg",
+                    "https://www.nirlat.co.il/wp-content/uploads/2021/03/mivreshet-2.jpg"
+                ],
+                calculators: []
+            }
+        ];
+
+        // פונקציות לניהול האפליקציה
+        document.addEventListener('DOMContentLoaded', function() {
+            // טעינת מוצרים
+            renderProducts(products);
+            
+            // ניהול בחירת סניף
+            const branchBtns = document.querySelectorAll('.branch-btn');
+            branchBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    branchBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    // כאן ניתן להוסיף לוגיקה לטעינת מוצרים ספציפיים לסניף
+                });
+            });
+            
+            // ניהול חיפוש מוצרים
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const filteredProducts = products.filter(product => 
+                    product.name.toLowerCase().includes(searchTerm) || 
+                    product.brand.toLowerCase().includes(searchTerm) ||
+                    product.category.toLowerCase().includes(searchTerm)
+                );
+                renderProducts(filteredProducts);
+            });
+            
+            // ניהול בחירת מותגים
+            const brandBtns = document.querySelectorAll('.brand-btn');
+            brandBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const brand = this.getAttribute('data-brand');
+                    if (brand === "כל המותגים") {
+                        renderProducts(products);
+                    } else {
+                        const filteredProducts = products.filter(product => 
+                            product.brand === brand
+                        );
+                        renderProducts(filteredProducts);
+                    }
+                    brandBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // ניהול בחירת קטגוריות
+            const categoryBtns = document.querySelectorAll('.category-btn');
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const category = this.getAttribute('data-category');
+                    if (category === "all") {
+                        renderProducts(products);
+                    } else {
+                        const filteredProducts = products.filter(product => 
+                            product.category === category
+                        );
+                        renderProducts(filteredProducts);
+                    }
+                    categoryBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // ניהול סגירת פופ-אפ
+            const closePopup = document.getElementById('closePopup');
+            closePopup.addEventListener('click', function() {
+                document.getElementById('productPopup').style.display = 'none';
+            });
+        });
+
+        // פונקציית הצגת המוצרים ברשת
+        function renderProducts(productsToShow) {
+            const productGrid = document.querySelector('.product-grid');
+            productGrid.innerHTML = '';
+            
+            if (productsToShow.length === 0) {
+                productGrid.innerHTML = '<p style="grid-column:1/-1;text-align:center;padding:2rem;">לא נמצאו מוצרים תואמים לחיפוש</p>';
+                return;
+            }
+            
+            productsToShow.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.innerHTML = `
+                    <div class="product-image" style="background-image: url('${product.images[0]}')"></div>
+                    <h3 class="product-name">${product.name}</h3>
+                    <span class="product-category">${product.category}</span>
+                    <div class="product-specs">
+                        <p class="product-spec"><i class="fas fa-tag"></i> מותג: ${product.brand}</p>
+                        <p class="product-spec"><i class="fas fa-shekel-sign"></i> מחיר: ${product.price}</p>
+                        ${product.coverage ? `<p class="product-spec"><i class="fas fa-ruler-combined"></i> כיסוי: ${product.coverage}</p>` : ''}
+                    </div>
+                    <div class="product-actions">
+                        <button class="details-btn" data-id="${product.id}"><i class="fas fa-info-circle"></i> פרטים</button>
+                        ${product.calculators.length > 0 ? `<button class="calc-btn" data-id="${product.id}"><i class="fas fa-calculator"></i> חישוב</button>` : ''}
+                        <button class="whatsapp-btn" data-id="${product.id}"><i class="fab fa-whatsapp"></i> הזמנה</button>
+                    </div>
+                `;
+                productGrid.appendChild(productCard);
+            });
+            
+            // הוספת אירועים לכפתורי המוצרים
+            document.querySelectorAll('.details-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const productId = parseInt(this.getAttribute('data-id'));
+                    showProductDetails(productId);
+                });
+            });
+            
+            document.querySelectorAll('.calc-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const productId = parseInt(this.getAttribute('data-id'));
+                    showCalculator(productId);
+                });
+            });
+            
+            document.querySelectorAll('.whatsapp-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const productId = parseInt(this.getAttribute('data-id'));
+                    showWhatsappForm(productId);
+                });
+            });
+        }
+
+        // פונקציית הצגת פרטי מוצר בפופ-אפ
+        function showProductDetails(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            const popupBody = document.getElementById('popupBody');
+            popupBody.innerHTML = `
+                <div class="popup-gallery">
+                    <div class="main-image" style="background-image: url('${product.images[0]}')"></div>
+                    <div class="thumbnails">
+                        ${product.images.map((img, index) => `
+                            <div class="thumbnail ${index === 0 ? 'active' : ''}" 
+                                 style="background-image: url('${img}')" 
+                                 data-img="${img}"></div>
+                        `).join('')}
+                    </div>
+                </div>
+                <div class="popup-details">
+                    <h2 class="popup-title">${product.name}</h2>
+                    <span class="popup-brand">${product.brand}</span>
+                    <p>${product.description}</p>
+                    
+                    <div class="popup-specs">
+                        <div class="spec-item">
+                            <i class="fas fa-shekel-sign"></i>
+                            <strong>מחיר:</strong> ${product.price}
+                        </div>
+                        ${product.coverage ? `
+                        <div class="spec-item">
+                            <i class="fas fa-ruler-combined"></i>
+                            <strong>כיסוי:</strong> ${product.coverage}
+                        </div>` : ''}
+                        ${product.dryingTime ? `
+                        <div class="spec-item">
+                            <i class="fas fa-clock"></i>
+                            <strong>זמן ייבוש:</strong> ${product.dryingTime}
+                        </div>` : ''}
+                        ${product.usage ? `
+                        <div class="spec-item">
+                            <i class="fas fa-paint-roller"></i>
+                            <strong>ייעוד:</strong> ${product.usage}
+                        </div>` : ''}
+                    </div>
+                    
+                    ${product.features.length > 0 ? `
+                    <div class="features">
+                        <h4><i class="fas fa-star"></i> תכונות עיקריות:</h4>
+                        <ul>
+                            ${product.features.map(feat => `<li>${feat}</li>`).join('')}
+                        </ul>
+                    </div>` : ''}
+                </div>
+            `;
+            
+            // הוספת אירועים לתמונות ממוזערות
+            document.querySelectorAll('.thumbnail').forEach(thumb => {
+                thumb.addEventListener('click', function() {
+                    const imgUrl = this.getAttribute('data-img');
+                    document.querySelector('.main-image').style.backgroundImage = `url('${imgUrl}')`;
+                    document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // הצגת הפופ-אפ
+            document.getElementById('productPopup').style.display = 'flex';
+        }
+
+        // פונקציית הצגת מחשבון כמויות
+        function showCalculator(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product || !product.calculators || product.calculators.length === 0) return;
+            
+            const calculator = product.calculators[0]; // לוקחים את המחשבון הראשון
+            
+            const popupBody = document.getElementById('popupBody');
+            popupBody.innerHTML = `
+                <div class="popup-gallery">
+                    <div class="main-image" style="background-image: url('${product.images[0]}')"></div>
+                </div>
+                <div class="popup-details">
+                    <h2 class="popup-title">${product.name}</h2>
+                    <span class="popup-brand">${product.brand}</span>
+                    
+                    <div class="calculator-section">
+                        <h3><i class="fas fa-calculator"></i> ${calculator.title}</h3>
+                        
+                        <div class="calc-input-group">
+                            ${calculator.inputs.map(input => `
+                                <div class="calc-input-container">
+                                    <label for="${input.id}">${input.label}</label>
+                                    <div style="position: relative;">
+                                        ${input.unit ? `<span class="calc-unit">${input.unit}</span>` : ''}
+                                        <input type="number" id="${input.id}" class="calc-input" placeholder="הכנס ${input.label.toLowerCase()}">
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        
+                        <button class="calc-button" id="calculateBtn">
+                            <i class="fas fa-calculator"></i> חשב
+                        </button>
+                        
+                        <div class="result-box" id="resultBox"></div>
+                    </div>
+                </div>
+            `;
+            
+            // הוספת אירוע לחישוב
+            document.getElementById('calculateBtn').addEventListener('click', function() {
+                const inputs = {};
+                calculator.inputs.forEach(input => {
+                    inputs[input.id] = document.getElementById(input.id).value;
+                });
+                
+                const result = calculator.formula(inputs);
+                const resultBox = document.getElementById('resultBox');
+                resultBox.innerHTML = `
+                    <p><i class="fas fa-check-circle"></i> <strong>תוצאה:</strong> ${result.result}</p>
+                    <p><i class="fas fa-info-circle"></i> ${result.details}</p>
+                `;
+                resultBox.style.display = 'block';
+            });
+            
+            // הצגת הפופ-אפ
+            document.getElementById('productPopup').style.display = 'flex';
+        }
+
+        // פונקציית הצגת טופס הזמנה בווצאפ
+        function showWhatsappForm(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            const activeBranch = document.querySelector('.branch-btn.active').textContent;
+            const branchPhone = activeBranch.includes("צפון") ? "0547890123" : "0508860896";
+            
+            const popupBody = document.getElementById('popupBody');
+            popupBody.innerHTML = `
+                <div class="popup-gallery">
+                    <div class="main-image" style="background-image: url('${product.images[0]}')"></div>
+                </div>
+                <div class="popup-details">
+                    <h2 class="popup-title">${product.name}</h2>
+                    <span class="popup-brand">${product.brand}</span>
+                    
+                    <div class="whatsapp-form">
+                        <h4><i class="fab fa-whatsapp"></i> הזמן מוצר זה בווצאפ</h4>
+                        <p>מלא את הפרטים ונשלח הודעה אוטומטית לסניף ${activeBranch}:</p>
+                        
+                        <div class="calc-input-group">
+                            <div class="calc-input-container">
+                                <label for="customerName">שם מלא</label>
+                                <input type="text" id="customerName" class="calc-input" placeholder="הכנס את שמך">
+                            </div>
+                            <div class="calc-input-container">
+                                <label for="customerPhone">טלפון</label>
+                                <input type="tel" id="customerPhone" class="calc-input" placeholder="הכנס מספר טלפון">
+                            </div>
+                        </div>
+                        
+                        <textarea id="whatsappMessage" placeholder="הוסף הודעה אישית (אופציונלי)..."></textarea>
+                        
+                        <button class="whatsapp-submit" id="sendWhatsapp">
+                            <i class="fab fa-whatsapp"></i> שלח הודעת ווצאפ
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            // הוספת אירוע לשליחת הודעת ווצאפ
+            document.getElementById('sendWhatsapp').addEventListener('click', function() {
+                const name = document.getElementById('customerName').value || 'לקוח';
+                const phone = document.getElementById('customerPhone').value;
+                const message = document.getElementById('whatsappMessage').value;
+                
+                if (!phone) {
+                    alert('אנא הזן מספר טלפון');
+                    return;
+                }
+                
+                const productText = `מוצר: ${product.name} (${product.brand})\nמחיר: ${product.price}`;
+                const branchText = `סניף: ${activeBranch}`;
+                const customText = message ? `\nהודעה אישית: ${message}` : '';
+                
+                const whatsappUrl = `https://wa.me/972${branchPhone}?text=${encodeURIComponent(
+                    `שלום, אני ${name} (טלפון: ${phone})\nאני מעוניין להזמין:\n${productText}\n${branchText}${customText}`
+                )}`;
+                
+                window.open(whatsappUrl, '_blank');
+            });
+            
+            // הצגת הפופ-אפ
+            document.getElementById('productPopup').style.display = 'flex';
+        }
+    </script>
+</body>
+</html>
