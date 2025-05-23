@@ -42,6 +42,8 @@
             min-height: 100vh;
             padding: 20px;
             line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
         }
 
         /* עיצוב לוגו ופרטי סניפים */
@@ -539,6 +541,7 @@
             z-index: 1000;
             backdrop-filter: blur(10px);
             animation: fadeIn 0.3s;
+            overflow: hidden;
         }
 
         @keyframes fadeIn {
@@ -559,6 +562,40 @@
             border: var(--border);
             animation: popupIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             backdrop-filter: blur(20px);
+            margin: 20px;
+        }
+
+        /* הוספת אנימציות למסגרת הפופ-אפ */
+        .popup-content::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 25%,
+                rgba(0,204,255,0.1) 50%,
+                transparent 75%
+            );
+            animation: rotateBorder 8s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotateBorder {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* אנימציה לסגירת הפופ-אפ */
+        .popup-content.closing {
+            animation: popupOut 0.3s ease-out forwards;
+        }
+
+        @keyframes popupOut {
+            from { transform: scale(1); opacity: 1; }
+            to { transform: scale(0.8); opacity: 0; }
         }
 
         @keyframes popupIn {
@@ -582,6 +619,7 @@
             cursor: pointer;
             transition: all 0.3s;
             border: 2px solid rgba(0,102,204,0.2);
+            z-index: 10;
         }
 
         .close-btn:hover {
@@ -954,6 +992,218 @@
             box-shadow: 0 5px 15px rgba(37,211,102,0.3);
         }
 
+        /* עיצוב עגלת קניות */
+        .cart-button {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: var(--primary);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(0,102,204,0.3);
+            z-index: 999;
+            transition: all 0.3s;
+            border: none;
+        }
+        
+        .cart-button:hover {
+            transform: scale(1.1) rotate(-10deg);
+        }
+        
+        #cartCounter {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent);
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* עיצוב פופ-אפ עגלת קניות */
+        .cart-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            justify-content: flex-end;
+            z-index: 1001;
+            backdrop-filter: blur(5px);
+        }
+
+        .cart-popup {
+            background: white;
+            width: 100%;
+            max-width: 450px;
+            height: 100vh;
+            padding: 20px;
+            overflow-y: auto;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            transform: translateX(100%);
+            transition: transform 0.3s ease-out;
+            position: relative;
+        }
+
+        .cart-popup.open {
+            transform: translateX(0);
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-header h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text);
+        }
+
+        .cart-items {
+            margin-bottom: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+            align-items: center;
+        }
+
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 8px;
+            background-color: #f5f5f5;
+        }
+
+        .cart-item-details {
+            flex-grow: 1;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--text);
+        }
+
+        .cart-item-price {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .cart-item-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .quantity-btn {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .quantity-value {
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .remove-item {
+            background: none;
+            border: none;
+            color: var(--error);
+            cursor: pointer;
+        }
+
+        .cart-summary {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .summary-total {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary);
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+
+        .checkout-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            width: 100%;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .checkout-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,102,204,0.3);
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--text);
+        }
+
         /* עיצוב רספונסיבי */
         @media (max-width: 1200px) {
             .popup-body {
@@ -1008,6 +1258,10 @@
                 width: 95%;
                 padding: 1.5rem;
             }
+
+            .cart-popup {
+                max-width: 100%;
+            }
         }
 
         @media (max-width: 576px) {
@@ -1049,6 +1303,16 @@
             .main-image {
                 height: 200px;
             }
+
+            .cart-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .cart-item-image {
+                width: 100%;
+                height: 120px;
+            }
         }
     </style>
 </head>
@@ -1086,9 +1350,9 @@
     <div class="brands-container" id="brandsContainer">
         <div class="brand-btn" data-brand="תרמוקיר" style="background-image: url('https://termokir.co.il/logo.png')"></div>
         <div class="brand-btn" data-brand="סיקה" style="background-image: url('https://play-lh.googleusercontent.com/xdTqJuNYkNnqYqFK-9N9zWpH44GG7i6NPMYOn5NlbJ7nqdh9Z2cc0IQmJl6jjW9nrzw=w600-h300-pc0xffffff-pd')"></div>
-        <div class="brand-btn" data-brand="טמבור" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSagMluSgpMQuBtC1xZ_yAZKNE_rYJ3b1jJQ&usqp=CAU')"></div>
-        <div class="brand-btn" data-brand="נירלט" style="background-image: url('https://www.nirlat.co.il/wp-content/uploads/2020/07/logo.png')"></div>
-        <div class="brand-btn" data-brand="קרמיט" style="background-image: url('https://www.kremit.co.il/wp-content/uploads/2020/07/kremit-logo.png')"></div>
+        <div class="brand-btn" data-brand="טמבור" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbiEMEuOPkoj8iuEvMUTQxY2brD49simBJjQ&s')"></div>
+        <div class="brand-btn" data-brand="נירלט" style="background-image: url('https://upload.wikimedia.org/wikipedia/he/d/d2/%D7%A0%D7%99%D7%A8%D7%9C%D7%98.png')"></div>
+        <div class="brand-btn" data-brand="כרמית מיסטר פיקס" style="background-image: url('https://gbcu.org.il/wp-content/uploads/2023/01/%D7%9B%D7%A8%D7%9E%D7%99%D7%AA-%D7%9E%D7%99%D7%A1%D7%98%D7%A8-%D7%A4%D7%99%D7%A7%D7%A1.png')"></div>
         <div class="brand-btn" data-brand="כל המותגים" style="background-image: url('https://cdn-icons-png.flaticon.com/512/5662/5662990.png')"></div>
     </div>
 
@@ -1116,24 +1380,304 @@
         </div>
     </div>
 
+    <div class="cart-button" id="cartButton">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="cartCounter">0</span>
+    </div>
+
+    <div class="cart-overlay" id="cartOverlay">
+        <div class="cart-popup" id="cartPopup">
+            <div class="cart-header">
+                <h3>עגלת הקניות שלך</h3>
+                <button class="close-cart" id="closeCart">&times;</button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <!-- פריטי העגלה יוטענו כאן דינאמית -->
+            </div>
+            <div class="cart-summary" id="cartSummary">
+                <div class="summary-row">
+                    <span>סה"כ ביניים:</span>
+                    <span id="subtotal">₪0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>משלוח:</span>
+                    <span id="shipping">₪0.00</span>
+                </div>
+                <div class="summary-row summary-total">
+                    <span>סה"כ לתשלום:</span>
+                    <span id="total">₪0.00</span>
+                </div>
+                <button class="checkout-btn" id="checkoutBtn">לתשלום ובחירת משלוח</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // נתוני מוצרים לדוגמה (בפועל יש לטעון משרת או קובץ JSON)
+        // מערכת עגלת קניות
+        let shoppingCart = {
+            items: [],
+            total: 0,
+            branch: 'main',
+            shipping: 0
+        };
+
+        // פונקציות ניהול עגלה
+        function addToCart(product, quantity = 1) {
+            const existingItem = shoppingCart.items.find(item => item.id === product.id);
+            if(existingItem) {
+                existingItem.quantity += quantity;
+            } else {
+                shoppingCart.items.push({
+                    ...product,
+                    quantity,
+                    price: product.price || 0
+                });
+            }
+            updateCartDisplay();
+            updateCartPopup();
+        }
+
+        function removeFromCart(productId) {
+            shoppingCart.items = shoppingCart.items.filter(item => item.id !== productId);
+            updateCartDisplay();
+            updateCartPopup();
+        }
+
+        function updateQuantity(productId, newQuantity) {
+            const item = shoppingCart.items.find(item => item.id === productId);
+            if(item) {
+                item.quantity = Math.max(1, newQuantity);
+                updateCartDisplay();
+                updateCartPopup();
+            }
+        }
+
+        function calculateTotals() {
+            let subtotal = 0;
+            shoppingCart.items.forEach(item => {
+                subtotal += item.price * item.quantity;
+            });
+            
+            // חישוב משלוח - לדוגמה: 25 ש"ח או חינם מעל 300 ש"ח
+            shoppingCart.shipping = subtotal > 300 ? 0 : 25;
+            
+            shoppingCart.total = subtotal + shoppingCart.shipping;
+            
+            return {
+                subtotal: subtotal.toFixed(2),
+                shipping: shoppingCart.shipping.toFixed(2),
+                total: shoppingCart.total.toFixed(2)
+            };
+        }
+
+        function updateCartDisplay() {
+            const cartCounter = document.getElementById('cartCounter');
+            if(cartCounter) {
+                const totalItems = shoppingCart.items.reduce((sum, item) => sum + item.quantity, 0);
+                cartCounter.textContent = totalItems;
+                cartCounter.style.display = totalItems > 0 ? 'flex' : 'none';
+            }
+        }
+
+        function updateCartPopup() {
+            const cartItemsContainer = document.getElementById('cartItems');
+            const totals = calculateTotals();
+            
+            if(shoppingCart.items.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="empty-cart">
+                        <i class="fas fa-shopping-cart" style="font-size: 3rem; color: #ccc; margin-bottom: 1rem;"></i>
+                        <p>העגלה שלך ריקה</p>
+                        <p>הוסף מוצרים כדי להתחיל</p>
+                    </div>
+                `;
+                document.getElementById('cartSummary').style.display = 'none';
+                return;
+            }
+            
+            document.getElementById('cartSummary').style.display = 'block';
+            
+            cartItemsContainer.innerHTML = shoppingCart.items.map(item => `
+                <div class="cart-item" data-id="${item.id}">
+                    <div class="cart-item-image" style="background-image: url('${item.images ? item.images[0] : ''}')"></div>
+                    <div class="cart-item-details">
+                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-price">${item.price.toFixed(2)} ₪</div>
+                    </div>
+                    <div class="cart-item-actions">
+                        <div class="cart-item-quantity">
+                            <button class="quantity-btn minus" data-id="${item.id}">-</button>
+                            <span class="quantity-value">${item.quantity}</span>
+                            <button class="quantity-btn plus" data-id="${item.id}">+</button>
+                        </div>
+                        <button class="remove-item" data-id="${item.id}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+            
+            document.getElementById('subtotal').textContent = `₪${totals.subtotal}`;
+            document.getElementById('shipping').textContent = totals.shipping > 0 ? `₪${totals.shipping}` : 'חינם';
+            document.getElementById('total').textContent = `₪${totals.total}`;
+            
+            // הוספת אירועים לכפתורים בעגלה
+            document.querySelectorAll('.quantity-btn.minus').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const productId = this.getAttribute('data-id');
+                    const item = shoppingCart.items.find(item => item.id === productId);
+                    if(item) {
+                        updateQuantity(productId, item.quantity - 1);
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.quantity-btn.plus').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const productId = this.getAttribute('data-id');
+                    const item = shoppingCart.items.find(item => item.id === productId);
+                    if(item) {
+                        updateQuantity(productId, item.quantity + 1);
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.remove-item').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const productId = this.getAttribute('data-id');
+                    removeFromCart(productId);
+                });
+            });
+        }
+
+        // פונקציות לניהול תצוגת עגלת הקניות
+        function openCart() {
+            document.getElementById('cartOverlay').style.display = 'flex';
+            document.getElementById('cartPopup').classList.add('open');
+            document.body.style.overflow = 'hidden';
+            updateCartPopup();
+        }
+
+        function closeCart() {
+            document.getElementById('cartPopup').classList.remove('open');
+            setTimeout(() => {
+                document.getElementById('cartOverlay').style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }, 300);
+        }
+
+        // מוצרי גבס
+        const gypsumProducts = [
+            {
+                id: "GYPSUM1",
+                name: "לוח גבס סטרונג ירוק 16 מ״מ",
+                brand: "טמבור",
+                category: "לוחות גבס",
+                specs: {
+                    עובי: "16 מ״מ",
+                    גודל: "1.2x2.4 מטר",
+                    משקל: "28 ק״ג",
+                    עמידות: "עמיד ללחות"
+                },
+                images: ["https://tambour.co.il/wp-content/uploads/2021/01/gypsum-strong-green.jpg"],
+                price: 0.00,
+                calculators: [
+                    {
+                        type: "area",
+                        title: "חישוב כמות לוחות לפי שטח",
+                        inputs: [
+                            { label: "שטח (מ\"ר)", id: "area", unit: "מ\"ר" }
+                        ],
+                        formula: (inputs) => {
+                            const boards = Math.ceil(inputs.area / 2.88); // 1.2x2.4=2.88 מ"ר
+                            return {
+                                result: `נדרשים ${boards} לוחות`,
+                                details: `לכיסוי שטח של ${inputs.area} מ\"ר`
+                            };
+                        }
+                    }
+                ]
+            },
+            {
+                id: "GYPSUM2",
+                name: "לוח גבס עמיד למים 12.5 מ״מ",
+                brand: "טמבור",
+                category: "לוחות גבס",
+                specs: {
+                    עובי: "12.5 מ״מ",
+                    גודל: "1.2x2.4 מטר",
+                    משקל: "25 ק״ג",
+                    עמידות: "עמיד ללחות"
+                },
+                images: ["https://tambour.co.il/wp-content/uploads/2021/01/gypsum-water-resistant.jpg"],
+                price: 0.00,
+                calculators: [
+                    {
+                        type: "area",
+                        title: "חישוב כמות לוחות לפי שטח",
+                        inputs: [
+                            { label: "שטח (מ\"ר)", id: "area", unit: "מ\"ר" }
+                        ],
+                        formula: (inputs) => {
+                            const boards = Math.ceil(inputs.area / 2.88);
+                            return {
+                                result: `נדרשים ${boards} לוחות`,
+                                details: `לכיסוי שטח של ${inputs.area} מ\"ר`
+                            };
+                        }
+                    }
+                ]
+            },
+            {
+                id: "GYPSUM3",
+                name: "לוח גבס אקוסטי 15 מ״מ",
+                brand: "טמבור",
+                category: "לוחות גבס",
+                specs: {
+                    עובי: "15 מ״מ",
+                    גודל: "1.2x2.4 מטר",
+                    משקל: "32 ק״ג",
+                    עמידות: "בידוד אקוסטי"
+                },
+                images: ["https://tambour.co.il/wp-content/uploads/2021/01/gypsum-acoustic.jpg"],
+                price: 0.00,
+                calculators: [
+                    {
+                        type: "area",
+                        title: "חישוב כמות לוחות לפי שטח",
+                        inputs: [
+                            { label: "שטח (מ\"ר)", id: "area", unit: "מ\"ר" }
+                        ],
+                        formula: (inputs) => {
+                            const boards = Math.ceil(inputs.area / 2.88);
+                            return {
+                                result: `נדרשים ${boards} לוחות`,
+                                details: `לכיסוי שטח של ${inputs.area} מ\"ר`
+                            };
+                        }
+                    }
+                ]
+            }
+        ];
+
+        // מוצרים נוספים
         const products = [
+            // מוצרים קיימים
             {
                 id: 1,
-                name: "צבע אקרילי פנימי סופר ווייט",
-                brand: "טמבור",
+                name: "אקווניר לבן 18 ליטר",
+                brand: "נירלט",
                 category: "צבעים",
-                price: "₪89",
                 coverage: "12 מ\"ר לליטר בשכבה אחת",
                 dryingTime: "2 שעות",
                 usage: "קירות פנימיים",
                 features: ["עמידות גבוהה", "כיסוי מעולה", "ריח נמוך", "ניקוי קל"],
                 description: "צבע אקרילי איכותי לצביעת קירות פנימיים, בעל כושר כיסוי מעולה ועמידות גבוהה. מתאים לכל סוגי המשטחים הפנימיים כולל גבס, בטון וטיח.",
                 images: [
-                    "https://www.tambour.co.il/wp-content/uploads/2021/03/super-white-1.jpg",
-                    "https://www.tambour.co.il/wp-content/uploads/2021/03/super-white-2.jpg"
+                    "https://www.homecenter.co.il/cdn/shop/files/4004006379-1.jpg?v=1717248486&width=713",
+                    "https://www.sinaistore.com/wp-content/uploads/2022/08/%D7%90%D7%A7%D7%95%D7%95%D7%A0%D7%99%D7%A8-%D7%90%D7%A7%D7%A1%D7%98%D7%A8%D7%94-%D7%9C%D7%91%D7%9F-800x800.webp"
                 ],
+                price: 0.00,
                 calculators: [
                     {
                         type: "area",
@@ -1146,173 +1690,483 @@
                             const area = parseFloat(inputs.area);
                             const coats = parseInt(inputs.coats) || 2;
                             const liters = (area / 12) * coats;
+                            const buckets = Math.ceil(liters / 18);
                             return {
                                 result: `נדרשים ${liters.toFixed(1)} ליטר צבע`,
-                                details: `לצביעת ${area} מ\"ר ב-${coats} שכבות`
+                                details: `מספר דליים: ${buckets} (18 ליטר לדלי)`
                             };
                         }
                     }
                 ]
             },
+            // מוצרי גבס
+            ...gypsumProducts,
+            // מוצרים חדשים - תרמוקיר
             {
-                id: 2,
-                name: "איטום נוזלי פוליאוריתן",
-                brand: "סיקה",
-                category: "איטום",
-                price: "₪249",
-                coverage: "1.5 מ\"ר לליטר בשכבה אחת",
-                dryingTime: "24 שעות",
-                usage: "גגות, מרפסות, חדרים רטובים",
-                features: ["גמישות גבוהה", "עמיד למים", "אורך חיים ארוך", "התאמה למשטחי בטון"],
-                description: "איטום נוזלי מבוסס פוליאוריתן לאיטום גגות ומשטחים חיצוניים. בעל גמישות מעולה ועמידות גבוהה לתנאי מזג אוויר קיצוניים.",
-                images: [
-                    "https://www.sika.com/content/dam/dms/isr01/s/sikagard-720s/sikagard-720s-1.jpg",
-                    "https://www.sika.com/content/dam/dms/isr01/s/sikagard-720s/sikagard-720s-2.jpg"
-                ],
-                calculators: [
-                    {
-                        type: "area",
-                        title: "מחשבון כמויות איטום",
-                        inputs: [
-                            { label: "שטח המשטח (מ\"ר)", id: "area", unit: "מ\"ר" },
-                            { label: "מספר שכבות", id: "coats", unit: "" }
-                        ],
-                        formula: (inputs) => {
-                            const area = parseFloat(inputs.area);
-                            const coats = parseInt(inputs.coats) || 2;
-                            const liters = (area / 1.5) * coats;
-                            return {
-                                result: `נדרשים ${liters.toFixed(1)} ליטר חומר איטום`,
-                                details: `לאיטום ${area} מ\"ר ב-${coats} שכבות`
-                            };
-                        }
-                    }
-                ]
-            },
-            {
-                id: 3,
-                name: "טיח פנימי לבן",
-                brand: "תרמוקיר",
+                id: "PL102",
+                name: "טיח מיישר PL 102",
                 category: "טיח",
-                price: "₪35",
-                coverage: "1 מ\"ר לשקית של 25 ק\"ג",
-                dryingTime: "48 שעות",
-                usage: "קירות פנימיים",
-                features: ["התאמה למשטחי גבס", "ייבוש מהיר", "מרקם חלק", "נטול סיד"],
-                description: "טיח פנימי איכותי למשטחי גבס ובטון. בעל מרקם חלק ואיכותי, מתאים לצביעה לאחר ייבוש.",
-                images: [
-                    "https://termokir.co.il/wp-content/uploads/2021/05/tiach-pnimi-1.jpg",
-                    "https://termokir.co.il/wp-content/uploads/2021/05/tiach-pnimi-2.jpg"
-                ],
-                calculators: [
-                    {
-                        type: "area",
-                        title: "מחשבון כמויות טיח",
-                        inputs: [
-                            { label: "שטח הקיר (מ\"ר)", id: "area", unit: "מ\"ר" },
-                            { label: "עובי השכבה (מ\"מ)", id: "thickness", unit: "מ\"מ" }
-                        ],
-                        formula: (inputs) => {
-                            const area = parseFloat(inputs.area);
-                            const thickness = parseFloat(inputs.thickness) || 5;
-                            const bags = (area * thickness / 5).toFixed(1);
-                            return {
-                                result: `נדרשות ${bags} שקיות טיח`,
-                                details: `לכיסוי ${area} מ\"ר בשכבה של ${thickness} מ\"מ`
-                            };
-                        }
-                    }
-                ]
-            },
-            {
-                id: 4,
-                name: "דבק אריחים גמיש",
-                brand: "נירלט",
-                category: "דבקים",
-                price: "₪89",
-                coverage: "3 מ\"ר לשקית של 25 ק\"ג",
+                brand: "תרמוקיר",
+                coverage: "16 ק\"ג/מ\"ר בעובי 10 מ\"מ",
                 dryingTime: "24 שעות",
-                usage: "הדבקת אריחים",
-                features: ["גמישות גבוהה", "התאמה למשטחים רטובים", "עמידות למים", "הדבקה חזקה"],
-                description: "דבק אריחים גמיש בעל עמידות גבוהה לתנאי רטיבות. מתאים להדבקת אריחים בחדרי רחצה, מטבחים ומרפסות.",
+                usage: "פנימי וחיצוני",
+                features: [
+                    "מתאים כבסיס להדבקת אריחים",
+                    "עמידות גבוהה",
+                    "התאמה לציפוי אקרילי/צמנטי"
+                ],
+                description: "טיח צמנטי מיישר איכותי למשטחים פנימיים וחיצוניים. בעל חוזק גבוה והתאמה למגוון ציפויים.",
                 images: [
-                    "https://www.nirlat.co.il/wp-content/uploads/2021/03/devek-arichim-1.jpg",
-                    "https://www.nirlat.co.il/wp-content/uploads/2021/03/devek-arichim-2.jpg"
+                    "https://termokir.co.il/wp-content/uploads/2012/12/pl102-lca-218x386.jpg",
+                    "https://example.com/pl102_2.jpg"
+                ],
+                price: 0.00,
+                calculators: [
+                    {
+                        type: "area",
+                        title: "חישוב לפי שטח ועובי",
+                        inputs: [
+                            { label: "שטח (מ\"ר)", id: "area", unit: "מ\"ר" },
+                            { label: "עובי (מ\"מ)", id: "thickness", unit: "מ\"מ", value: 10 }
+                        ],
+                        formula: (inputs) => {
+                            const kg = (inputs.area * (inputs.thickness / 10) * 16).toFixed(1);
+                            const bags = Math.ceil(kg / 40);
+                            return {
+                                result: `נדרשים ${kg} ק\"ג טיח`,
+                                details: `מספר שקיות: ${bags} (40 ק\"ג לשקית)`
+                            };
+                        }
+                    }
+                ]
+            },
+            {
+                id: "AD601",
+                name: "דבק קרמיקה AD 601",
+                category: "דבקים",
+                brand: "תרמוקיר",
+                coverage: "1.5 ק\"ג/מ\"ר בעובי 1 מ\"מ",
+                dryingTime: "24 שעות",
+                usage: "פנימי וחיצוני",
+                features: [
+                    "גמישות גבוהה",
+                    "התאמה למשטחים רטובים",
+                    "הדבקה חזקה"
+                ],
+                description: "דבק צמנטי גמיש להדבקת אריחים סופגים על גבי בטון, טיח ובלוקים.",
+                images: [
+                    "https://termokir.co.il/wp-content/uploads/2012/12/AD601.jpg",
+                    "https://example.com/ad601_2.jpg"
+                ],
+                price: 0.00,
+                calculators: [
+                    {
+                        type: "area",
+                        title: "חישוב לפי שטח ועובי",
+                        inputs: [
+                            { label: "שטח (מ\"ר)", id: "area", unit: "מ\"ר" },
+                            { label: "עובי (מ\"מ)", id: "thickness", unit: "מ\"מ", value: 5 }
+                        ],
+                        formula: (inputs) => {
+                            const kg = (inputs.area * (inputs.thickness / 1) * 1.5).toFixed(1);
+                            const bags = Math.ceil(kg / 25);
+                            return {
+                                result: `נדרשים ${kg} ק\"ג דבק`,
+                                details: `מספר שקיות: ${bags} (25 ק\"ג לשקית)`
+                            };
+                        }
+                    }
+                ]
+            },
+            {
+                id: "SE980",
+                name: "איטום צמנטי SE 980",
+                category: "מוצרי איטום",
+                brand: "תרמוקיר",
+                price: 0,
+                coverage: "2 ק\"ג/מ\"ר בעובי 1 מ\"מ",
+                dryingTime: "48 שעות",
+                usage: "חיצוני, בריכות, מרפסות",
+                features: [
+                    "גמישות גבוהה",
+                    "עמידות למים",
+                    "התאמה למשטחי בטון וטיח"
+                ],
+                description: "איטום צמנטי גמיש לאיטום משטחי בטון, טיח ובלוקים באזורים רטובים.",
+                images: [
+                    "https://termokir.co.il/wp-content/uploads/2012/12/SE980.jpg",
+                    "https://example.com/se980_2.jpg"
                 ],
                 calculators: [
                     {
                         type: "area",
-                        title: "מחשבון כמויות דבק",
+                        title: "חישוב לפי שטח ועובי",
                         inputs: [
-                            { label: "שטח הרצפה (מ\"ר)", id: "area", unit: "מ\"ר" },
-                            { label: "גודל האריח (ס\"מ)", id: "tileSize", unit: "ס\"מ" }
+                            { label: "שטח (מ\"ר)", id: "area", unit: "מ\"ר" },
+                            { label: "עובי (מ\"מ)", id: "thickness", unit: "מ\"מ", value: 2 }
                         ],
                         formula: (inputs) => {
-                            const area = parseFloat(inputs.area);
-                            const tileSize = parseFloat(inputs.tileSize) || 30;
-                            const bags = (area / (tileSize > 30 ? 2.5 : 3)).toFixed(1);
+                            const kg = (inputs.area * (inputs.thickness / 1) * 2).toFixed(1);
+                            const buckets = Math.ceil(kg / 20);
                             return {
-                                result: `נדרשות ${bags} שקיות דבק`,
-                                details: `לכיסוי ${area} מ\"ר לאריחים של ${tileSize} ס\"מ`
+                                result: `נדרשים ${kg} ק\"ג חומר איטום`,
+                                details: `מספר דליים: ${buckets} (20 ק\"ג לדלי)`
+                            };
+                        }
+                    }
+                ]
+            },
+            
+            // מוצרים חדשים - סיקה
+            {
+                id: "SIKA-LASTIC-1K",
+                name: "סיקה לסטיק 1K",
+                category: "איטום",
+                brand: "סיקה",
+                coverage: "1.5 ק\"ג/מ\"ר לשכבה",
+                dryingTime: "24 שעות",
+                usage: "פנימי וחיצוני",
+                features: [
+                    "חד רכיבי",
+                    "מחוזק בסיבים",
+                    "התאמה לחדרים רטובים ומרפסות"
+                ],
+                description: "תערובת צמנטית משחתית גמישה, חד רכיבית, מחוזקת בסיבים לאיטום אזורים רטובים.",
+                images: [
+                    "https://example.com/sika-lastic-1k.jpg",
+                    "https://example.com/sika-lastic-1k-application.jpg"
+                ],
+                price: 0.00,
+                calculators: [
+                    {
+                        type: "area",
+                        title: "חישוב כמות חומר לפי שטח",
+                        inputs: [
+                            { label: "שטח (מ\"ר)", id: "area", unit: "מ\"ר" }
+                        ],
+                        formula: (inputs) => {
+                            const kg = (inputs.area * 1.5).toFixed(1);
+                            const bags = Math.ceil(kg / 17);
+                            return {
+                                result: `נדרשים ${kg} ק\"ג חומר`,
+                                details: `מספר שקים: ${bags} (17 ק\"ג לשק)`
                             };
                         }
                     }
                 ]
             },
             {
-                id: 5,
-                name: "בטון מוכן במשלוח",
-                brand: "קרמיט",
-                category: "חול ובטון",
-                price: "₪350 למטר מעוקב",
-                coverage: "1 מ\"ק לכ-10 מ\"ר בעובי 10 ס\"מ",
-                dryingTime: "28 ימים",
-                usage: "יציקות ויסודות",
-                features: ["איכות גבוהה", "משלוח מהיר", "התאמה לפי דרישה", "עמידות גבוהה"],
-                description: "בטון מוכן במשלוח לאתר הבנייה. ניתן להתאמה לפי דרישת הלקוח עם תוספים שונים לשיפור תכונות הבטון.",
+                id: "SIKA-CERAM-255",
+                name: "סיקה סרם 255 סטאר פלקס",
+                category: "דבקים",
+                brand: "סיקה",
+                coverage: "1.6 ק\"ג/מ\"ר בעובי 1 מ\"מ",
+                dryingTime: "24 שעות",
+                usage: "פנימי וחיצוני",
+                features: [
+                    "גמישות גבוהה",
+                    "התאמה לאריחי פורצלן",
+                    "יישום בחדרים רטובים"
+                ],
+                description: "דבק צמנטי גמיש מטיפוס C2TE S1 להדבקת אריחי קרמיקה, פורצלן, שיש ואבן.",
                 images: [
-                    "https://www.kremit.co.il/wp-content/uploads/2021/04/beton-muchan-1.jpg",
-                    "https://www.kremit.co.il/wp-content/uploads/2021/04/beton-muchan-2.jpg"
+                    "https://gilar.co.il/wp-content/uploads/2021/05/Sika-Ceram-255.jpg",
+                    "https://gilar.co.il/wp-content/uploads/2021/05/Sika-Ceram-255-application.jpg"
+                ],
+                price: 0.00,
+                calculators: [
+                    {
+                        type: "area",
+                        title: "חישוב כמות דבק לפי שטח ועובי",
+                        inputs: [
+                            { label: "שטח (מ\"ר)", id: "area", unit: "מ\"ר" },
+                            { label: "עובי (מ\"מ)", id: "thickness", unit: "מ\"מ", value: 5 }
+                        ],
+                        formula: (inputs) => {
+                            const kg = (inputs.area * inputs.thickness * 0.16).toFixed(1);
+                            const bags = Math.ceil(kg / 25);
+                            return {
+                                result: `נדרשים ${kg} ק\"ג דבק`,
+                                details: `מספר שקיות: ${bags} (25 ק\"ג לשקית)`
+                            };
+                        }
+                    }
+                ]
+            },
+            {
+                id: "SIKAFLEX-11FC",
+                name: "סיקפלקס®-11FC",
+                category: "איטום",
+                brand: "סיקה",
+                price: 0.00,
+                coverage: "1.2 ק\"ג/מ\"ר בעובי 1 מ\"מ",
+                dryingTime: "24 שעות",
+                usage: "פנימי וחיצוני",
+                features: [
+                    "אלסטומרי על בסיס פוליאוריתן",
+                    "התארכות עד 600%",
+                    "התאמה לתפרים וחיבורים"
+                ],
+                description: "איטום והדבקה אלסטומרי על בסיס פוליאוריתן לתפרים וחיבורים בבנייה.",
+                images: [
+                    "https://gilar.co.il/wp-content/uploads/2021/05/Sikaflex-11FC.jpg",
+                    "https://gilar.co.il/wp-content/uploads/2021/05/Sikaflex-11FC-application.jpg"
                 ],
                 calculators: [
                     {
-                        type: "volume",
-                        title: "מחשבון כמויות בטון",
+                        type: "area",
+                        title: "חישוב כמות לפי שטח ועובי",
                         inputs: [
-                            { label: "אורך (מ')", id: "length", unit: "מ'" },
-                            { label: "רוחב (מ')", id: "width", unit: "מ'" },
-                            { label: "עובי (ס\"מ)", id: "thickness", unit: "ס\"מ" }
+                            { label: "שטח (מ\"ר)", id: "area", unit: "מ\"ר" },
+                            { label: "עובי (מ\"מ)", id: "thickness", unit: "מ\"מ", value: 1 }
                         ],
                         formula: (inputs) => {
-                            const length = parseFloat(inputs.length);
-                            const width = parseFloat(inputs.width);
-                            const thickness = parseFloat(inputs.thickness) || 10;
-                            const volume = (length * width * thickness / 100).toFixed(2);
-                            const cost = (volume * 350).toFixed(0);
+                            const kg = (inputs.area * inputs.thickness * 1.2).toFixed(1);
+                            const cartridges = Math.ceil(kg / 0.6);
                             return {
-                                result: `נדרשים ${volume} מ\"ק בטון`,
-                                details: `עלות משוערת: ₪${cost} (כולל משלוח)`
+                                result: `נדרשים ${kg} ק\"ג חומר`,
+                                details: `מספר מחסניות: ${cartridges} (600 גרם למחסנית)`
+                            };
+                        }
+                    }
+                ]
+            },
+            
+            // מוצרים חדשים - בלוקים
+            {
+                id: "BLK20",
+                name: "בלוק בטון 20 ס״מ",
+                category: "בלוקים",
+                brand: "ח.סבן",
+                coverage: "12.5 יחידות למ\"ר",
+                usage: "קירות חוץ ופנים",
+                features: [
+                    "מידות: 20x20x40 ס״מ",
+                    "משקל: 18 ק״ג",
+                    "חוזק: 7MPa"
+                ],
+                description: "בלוק בטון סטנדרטי לבניית קירות חוץ ופנים.",
+                images: [
+                    "https://blockal.co.il/wp-content/uploads/2017/04/20-20-40-X4-%D7%91%D7%9C%D7%99-%D7%A8%D7%A7%D7%A2-copy.png",
+                    "https://blockal.co.il/wp-content/uploads/2017/04/20-20-20-X1-%D7%91%D7%9C%D7%99-%D7%A8%D7%A7%D7%A2-copy.png"
+                ],
+                price: 0.00,
+                calculators: [
+                    {
+                        type: "wall",
+                        title: "חישוב בלוקים לקיר",
+                        inputs: [
+                            { label: "אורך קיר (מ')", id: "length", unit: "מ'" },
+                            { label: "גובה קיר (מ')", id: "height", unit: "מ'" },
+                            { label: "שטח פתחים (מ\"ר)", id: "openings", unit: "מ\"ר", value: 0 }
+                        ],
+                        formula: (inputs) => {
+                            const area = (inputs.length * inputs.height) - inputs.openings;
+                            const blocks = Math.ceil((area * 12.5) * 1.1);
+                            const mortar = (blocks * 1.2).toFixed(1);
+                            return {
+                                result: `נדרשים ${blocks} בלוקים`,
+                                details: `כמות טיט משוערת: ${mortar} ק\"ג`
                             };
                         }
                     }
                 ]
             },
             {
-                id: 6,
-                name: "מברשת צבע איכותית",
-                brand: "נירלט",
-                category: "כלי עבודה",
-                price: "₪25",
-                coverage: "",
-                dryingTime: "",
-                usage: "צביעה ידנית",
-                features: ["סיבים סינתטיים", "ידית נוחה", "אין נשירת סיבים", "התאמה לכל סוגי הצבע"],
-                description: "מברשת צבע איכותית עם סיבים סינתטיים שאינם נושרים. מתאימה לכל סוגי הצבעים ומאפשרת עבודה מדויקת.",
-                images: [
-                    "https://www.nirlat.co.il/wp-content/uploads/2021/03/mivreshet-1.jpg",
-                    "https://www.nirlat.co.il/wp-content/uploads/2021/03/mivreshet-2.jpg"
+        id: "SAND1",
+        name: "חול גנים שק גדול כולל פקדון",
+        brand: "ח.סבן חומרי בנין",
+        supplierCode: "310224",
+        productCode: "11601",
+        category: "חול ובטון",
+        specs: {
+            נפח: "0.5 קוב",
+            משקל: "כ-800 ק\"ג",
+            שימוש: "עבודות בנייה ושיפוץ"
+        },
+        description: "חול גנים באיכות גבוהה בשק גדול לנפח של חצי קוב, כולל פקדון.",
+        images: ["https://example.com/sand-bag.jpg"],
+        price: 0.00,
+        calculators: [
+            {
+                type: "volume",
+                title: "חישוב כמות לפי נפח",
+                inputs: [
+                    { label: "נפח נדרש (קוב)", id: "volume", unit: "קוב", value: 0.5 }
                 ],
-                calculators: []
+                formula: (inputs) => {
+                    const bags = Math.ceil(inputs.volume / 0.5);
+                    return {
+                        result: `נדרשים ${bags} שקים`,
+                        details: `סה"כ נפח: ${(bags * 0.5).toFixed(1)} קוב`
+                    };
+                }
+            }
+        ]
+    },
+    {
+        id: "SAND2",
+        name: "חמרה שק גדול",
+        brand: "ח.סבן חומרי בנין",
+        supplierCode: "310224",
+        productCode: "11570",
+        category: "חול ובטון",
+        specs: {
+            נפח: "0.5 קוב",
+            משקל: "כ-800 ק\"ג",
+            שימוש: "עבודות בנייה ושיפוץ"
+        },
+        description: "חמרה באיכות גבוהה בשק גדול לנפח של חצי קוב.",
+        images: ["https://example.com/hamra-bag.jpg"],
+        price: 0.00,
+        calculators: [
+            {
+                type: "volume",
+                title: "חישוב כמות לפי נפח",
+                inputs: [
+                    { label: "נפח נדרש (קוב)", id: "volume", unit: "קוב", value: 0.5 }
+                ],
+                formula: (inputs) => {
+                    const bags = Math.ceil(inputs.volume / 0.5);
+                    return {
+                        result: `נדרשים ${bags} שקים`,
+                        details: `סה"כ נפח: ${(bags * 0.5).toFixed(1)} קוב`
+                    };
+                }
+            }
+        ]
+    },
+    {
+        id: "SAND7",
+        name: "סומסום שק גדול",
+        brand: "ח.סבן חומרי בנין",
+        supplierCode: "310224",
+        productCode: "11570",
+        category: "חול ובטון",
+        specs: {
+            נפח: "0.5 קוב",
+            משקל: "כ-800 ק\"ג",
+            שימוש: "עבודות בנייה ושיפוץ"
+        },
+        description: "סומסום באיכות גבוהה בשק גדול לנפח של חצי קוב.",
+        images: ["https://example.com/hamra-bag.jpg"],
+        price: 0.00,
+        calculators: [
+            {
+                type: "volume",
+                title: "חישוב כמות לפי נפח",
+                inputs: [
+                    { label: "נפח נדרש (קוב)", id: "volume", unit: "קוב", value: 0.5 }
+                ],
+                formula: (inputs) => {
+                    const bags = Math.ceil(inputs.volume / 0.5);
+                    return {
+                        result: `נדרשים ${bags} שקים`,
+                        details: `סה"כ נפח: ${(bags * 0.5).toFixed(1)} קוב`
+                    };
+                }
+            }
+        ]
+    },
+    {
+        id: "SAND3",
+        name: "טיט מוכן שק גדול",
+        brand: "ח.סבן חומרי בנין",
+        supplierCode: "310224",
+        productCode: "11551",
+        category: "חול ובטון",
+        specs: {
+            נפח: "0.5 קוב",
+            משקל: "כ-850 ק\"ג",
+            שימוש: "עבודות בנייה ושיפוץ"
+        },
+        description: "טיט מוכן באיכות גבוהה בשק גדול לנפח של חצי קוב.",
+        images: ["https://example.com/concrete-bag.jpg"],
+        price: 0.00,
+        calculators: [
+            {
+                type: "volume",
+                title: "חישוב כמות לפי נפח",
+                inputs: [
+                    { label: "נפח נדרש (קוב)", id: "volume", unit: "קוב", value: 0.5 }
+                ],
+                formula: (inputs) => {
+                    const bags = Math.ceil(inputs.volume / 0.5);
+                    return {
+                        result: `נדרשים ${bags} שקים`,
+                        details: `סה"כ נפח: ${(bags * 0.5).toFixed(1)} קוב`
+                    };
+                }
+            }
+        ]
+    },
+    {
+        id: "SAND4",
+        name: "מצע שק גדול",
+        brand: "ח.סבן חומרי בנין",
+        supplierCode: "310224",
+        productCode: "11540",
+        category: "חול ובטון",
+        specs: {
+            נפח: "0.5 קוב",
+            משקל: "כ-750 ק\"ג",
+            שימוש: "עבודות בנייה ושיפוץ"
+        },
+        description: "מצע באיכות גבוהה בשק גדול לנפח של חצי קוב.",
+        images: ["https://example.com/base-bag.jpg"],
+        price: 0.00,
+        calculators: [
+            {
+                type: "volume",
+                title: "חישוב כמות לפי נפח",
+                inputs: [
+                    { label: "נפח נדרש (קוב)", id: "volume", unit: "קוב", value: 0.5 }
+                ],
+                formula: (inputs) => {
+                    const bags = Math.ceil(inputs.volume / 0.5);
+                    return {
+                        result: `נדרשים ${bags} שקים`,
+                        details: `סה"כ נפח: ${(bags * 0.5).toFixed(1)} קוב`
+                    };
+                }
+            }
+        ]
+    },
+            {
+                id: "BLK-SHK20",
+                name: "בלוק שוקת 20/20/40",
+                category: "בלוקים",
+                brand: "ח.סבן",
+                coverage: "12.5 יחידות למ\"ר",
+                usage: "מערכות תשתית",
+                features: [
+                    "מידות: 20x20x40 ס״מ",
+                    "משקל: 18 ק״ג",
+                    "חוזק: 7MPa"
+                ],
+                description: "בלוק שוקת לבנייה קונסטרוקטיבית ומערכות תשתית.",
+                images: [
+                    "https://blockal.co.il/wp-content/uploads/2017/04/block_shuka_20x20x40.png"
+                ],
+                price: 0.000,
+                calculators: [
+                    {
+                        type: "wall",
+                        title: "חישוב בלוקים לקיר",
+                        inputs: [
+                            { label: "אורך קיר (מ')", id: "length", unit: "מ'" },
+                            { label: "גובה קיר (מ')", id: "height", unit: "מ'" }
+                        ],
+                        formula: (inputs) => {
+                            const area = inputs.length * inputs.height;
+                            const blocks = Math.ceil(area * 12.5);
+                            return {
+                                result: `נדרשים ${blocks} בלוקים`,
+                                details: `לשטח קיר של ${area.toFixed(1)} מ\"ר`
+                            };
+                        }
+                    }
+                ]
             }
         ];
 
@@ -1327,7 +2181,7 @@
                 btn.addEventListener('click', function() {
                     branchBtns.forEach(b => b.classList.remove('active'));
                     this.classList.add('active');
-                    // כאן ניתן להוסיף לוגיקה לטעינת מוצרים ספציפיים לסניף
+                    shoppingCart.branch = this.getAttribute('data-branch');
                 });
             });
             
@@ -1379,10 +2233,48 @@
                 });
             });
             
-            // ניהול סגירת פופ-אפ
+            // ניהול סגירת פופ-אפ מוצר
             const closePopup = document.getElementById('closePopup');
             closePopup.addEventListener('click', function() {
-                document.getElementById('productPopup').style.display = 'none';
+                const popupContent = document.querySelector('.popup-content');
+                popupContent.classList.add('closing');
+                setTimeout(() => {
+                    document.getElementById('productPopup').style.display = 'none';
+                    popupContent.classList.remove('closing');
+                }, 300);
+            });
+            
+            // ניהול עגלת קניות
+            document.getElementById('cartButton').addEventListener('click', openCart);
+            document.getElementById('closeCart').addEventListener('click', closeCart);
+            document.getElementById('cartOverlay').addEventListener('click', function(e) {
+                if(e.target === this) {
+                    closeCart();
+                }
+            });
+            
+            // כפתור תשלום
+            document.getElementById('checkoutBtn').addEventListener('click', function() {
+                if(shoppingCart.items.length === 0) {
+                    alert('העגלה שלך ריקה');
+                    return;
+                }
+                
+                const activeBranch = document.querySelector('.branch-btn.active').textContent;
+                const branchPhone = activeBranch.includes("צפון") ? "546344567" : "508860896";
+                
+                let message = `הזמנה מסניף ${activeBranch}:\n\n`;
+                shoppingCart.items.forEach(item => {
+                    message += `${item.name} - ${item.quantity} x ${item.price.toFixed(2)} ₪ = ${(item.quantity * item.price).toFixed(2)} ₪\n`;
+                });
+                
+                const totals = calculateTotals();
+                message += `\nסה"כ ביניים: ${totals.subtotal} ₪\n`;
+                message += `משלוח: ${totals.shipping} ₪\n`;
+                message += `סה"כ לתשלום: ${totals.total} ₪`;
+                
+                const whatsappUrl = `https://wa.me/972${branchPhone}?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
             });
         });
 
@@ -1405,8 +2297,8 @@
                     <span class="product-category">${product.category}</span>
                     <div class="product-specs">
                         <p class="product-spec"><i class="fas fa-tag"></i> מותג: ${product.brand}</p>
-                        <p class="product-spec"><i class="fas fa-shekel-sign"></i> מחיר: ${product.price}</p>
                         ${product.coverage ? `<p class="product-spec"><i class="fas fa-ruler-combined"></i> כיסוי: ${product.coverage}</p>` : ''}
+                        ${product.price ? `<p class="product-spec"><i class="fas fa-shekel-sign"></i> מחיר: ${product.price.toFixed(2)} ₪</p>` : ''}
                     </div>
                     <div class="product-actions">
                         <button class="details-btn" data-id="${product.id}"><i class="fas fa-info-circle"></i> פרטים</button>
@@ -1420,21 +2312,21 @@
             // הוספת אירועים לכפתורי המוצרים
             document.querySelectorAll('.details-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
-                    const productId = parseInt(this.getAttribute('data-id'));
+                    const productId = this.getAttribute('data-id');
                     showProductDetails(productId);
                 });
             });
             
             document.querySelectorAll('.calc-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
-                    const productId = parseInt(this.getAttribute('data-id'));
+                    const productId = this.getAttribute('data-id');
                     showCalculator(productId);
                 });
             });
             
             document.querySelectorAll('.whatsapp-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
-                    const productId = parseInt(this.getAttribute('data-id'));
+                    const productId = this.getAttribute('data-id');
                     showWhatsappForm(productId);
                 });
             });
@@ -1442,7 +2334,15 @@
 
         // פונקציית הצגת פרטי מוצר בפופ-אפ
         function showProductDetails(productId) {
-            const product = products.find(p => p.id === productId);
+            let product;
+            
+            // בדיקה אם ה-ID הוא מספר (למוצרים הישנים) או מחרוזת (למוצרים החדשים)
+            if (!isNaN(productId)) {
+                product = products.find(p => p.id === parseInt(productId));
+            } else {
+                product = products.find(p => p.id === productId);
+            }
+            
             if (!product) return;
             
             const popupBody = document.getElementById('popupBody');
@@ -1463,10 +2363,11 @@
                     <p>${product.description}</p>
                     
                     <div class="popup-specs">
+                        ${product.price ? `
                         <div class="spec-item">
                             <i class="fas fa-shekel-sign"></i>
-                            <strong>מחיר:</strong> ${product.price}
-                        </div>
+                            <strong>מחיר:</strong> ${product.price.toFixed(2)} ₪
+                        </div>` : ''}
                         ${product.coverage ? `
                         <div class="spec-item">
                             <i class="fas fa-ruler-combined"></i>
@@ -1482,15 +2383,24 @@
                             <i class="fas fa-paint-roller"></i>
                             <strong>ייעוד:</strong> ${product.usage}
                         </div>` : ''}
+                        ${product.specs ? Object.entries(product.specs).map(([key, value]) => `
+                        <div class="spec-item">
+                            <i class="fas fa-info-circle"></i>
+                            <strong>${key}:</strong> ${value}
+                        </div>`).join('') : ''}
                     </div>
                     
-                    ${product.features.length > 0 ? `
+                    ${product.features && product.features.length > 0 ? `
                     <div class="features">
                         <h4><i class="fas fa-star"></i> תכונות עיקריות:</h4>
                         <ul>
                             ${product.features.map(feat => `<li>${feat}</li>`).join('')}
                         </ul>
                     </div>` : ''}
+                    
+                    <button class="calc-button" id="addToCartBtn" style="margin-top: 1.5rem;">
+                        <i class="fas fa-cart-plus"></i> הוסף לעגלה
+                    </button>
                 </div>
             `;
             
@@ -1504,13 +2414,26 @@
                 });
             });
             
+            // הוספת אירוע לכפתור הוסף לעגלה
+            document.getElementById('addToCartBtn').addEventListener('click', function() {
+                addToCart(product);
+                alert(`המוצר ${product.name} נוסף לעגלת הקניות`);
+            });
+            
             // הצגת הפופ-אפ
             document.getElementById('productPopup').style.display = 'flex';
         }
 
         // פונקציית הצגת מחשבון כמויות
         function showCalculator(productId) {
-            const product = products.find(p => p.id === productId);
+            let product;
+            
+            if (!isNaN(productId)) {
+                product = products.find(p => p.id === parseInt(productId));
+            } else {
+                product = products.find(p => p.id === productId);
+            }
+            
             if (!product || !product.calculators || product.calculators.length === 0) return;
             
             const calculator = product.calculators[0]; // לוקחים את המחשבון הראשון
@@ -1533,7 +2456,7 @@
                                     <label for="${input.id}">${input.label}</label>
                                     <div style="position: relative;">
                                         ${input.unit ? `<span class="calc-unit">${input.unit}</span>` : ''}
-                                        <input type="number" id="${input.id}" class="calc-input" placeholder="הכנס ${input.label.toLowerCase()}">
+                                        <input type="number" id="${input.id}" class="calc-input" placeholder="הכנס ${input.label.toLowerCase()}" ${input.value ? `value="${input.value}"` : ''}>
                                     </div>
                                 </div>
                             `).join('')}
@@ -1544,6 +2467,10 @@
                         </button>
                         
                         <div class="result-box" id="resultBox"></div>
+                        
+                        <button class="calc-button" id="addToCartFromCalc" style="background: linear-gradient(135deg, var(--accent), #ff8533); margin-top: 1rem;">
+                            <i class="fas fa-cart-plus"></i> הוסף לעגלה
+                        </button>
                     </div>
                 </div>
             `;
@@ -1564,17 +2491,30 @@
                 resultBox.style.display = 'block';
             });
             
+            // הוספת אירוע לכפתור הוסף לעגלה ממחשבון
+            document.getElementById('addToCartFromCalc').addEventListener('click', function() {
+                addToCart(product);
+                alert(`המוצר ${product.name} נוסף לעגלת הקניות`);
+            });
+            
             // הצגת הפופ-אפ
             document.getElementById('productPopup').style.display = 'flex';
         }
 
         // פונקציית הצגת טופס הזמנה בווצאפ
         function showWhatsappForm(productId) {
-            const product = products.find(p => p.id === productId);
+            let product;
+            
+            if (!isNaN(productId)) {
+                product = products.find(p => p.id === parseInt(productId));
+            } else {
+                product = products.find(p => p.id === productId);
+            }
+            
             if (!product) return;
             
             const activeBranch = document.querySelector('.branch-btn.active').textContent;
-            const branchPhone = activeBranch.includes("צפון") ? "0547890123" : "0508860896";
+            const branchPhone = activeBranch.includes("צפון") ? "546344567" : "508860896";
             
             const popupBody = document.getElementById('popupBody');
             popupBody.innerHTML = `
@@ -1598,12 +2538,20 @@
                                 <label for="customerPhone">טלפון</label>
                                 <input type="tel" id="customerPhone" class="calc-input" placeholder="הכנס מספר טלפון">
                             </div>
+                            <div class="calc-input-container">
+                                <label for="productQuantity">כמות</label>
+                                <input type="number" id="productQuantity" class="calc-input" placeholder="כמות" value="1">
+                            </div>
                         </div>
                         
                         <textarea id="whatsappMessage" placeholder="הוסף הודעה אישית (אופציונלי)..."></textarea>
                         
                         <button class="whatsapp-submit" id="sendWhatsapp">
                             <i class="fab fa-whatsapp"></i> שלח הודעת ווצאפ
+                        </button>
+                        
+                        <button class="whatsapp-submit" id="addToCartFromWhatsapp" style="background: linear-gradient(135deg, var(--primary), var(--secondary)); margin-top: 10px;">
+                            <i class="fas fa-cart-plus"></i> הוסף לעגלה
                         </button>
                     </div>
                 </div>
@@ -1613,6 +2561,7 @@
             document.getElementById('sendWhatsapp').addEventListener('click', function() {
                 const name = document.getElementById('customerName').value || 'לקוח';
                 const phone = document.getElementById('customerPhone').value;
+                const quantity = document.getElementById('productQuantity').value || 1;
                 const message = document.getElementById('whatsappMessage').value;
                 
                 if (!phone) {
@@ -1620,7 +2569,7 @@
                     return;
                 }
                 
-                const productText = `מוצר: ${product.name} (${product.brand})\nמחיר: ${product.price}`;
+                const productText = `מוצר: ${product.name}\nכמות: ${quantity}\n${product.price ? `מחיר: ${product.price.toFixed(2)} ₪` : ''}`;
                 const branchText = `סניף: ${activeBranch}`;
                 const customText = message ? `\nהודעה אישית: ${message}` : '';
                 
@@ -1629,6 +2578,13 @@
                 )}`;
                 
                 window.open(whatsappUrl, '_blank');
+            });
+            
+            // הוספת אירוע לכפתור הוסף לעגלה מטופס ווצאפ
+            document.getElementById('addToCartFromWhatsapp').addEventListener('click', function() {
+                const quantity = parseInt(document.getElementById('productQuantity').value) || 1;
+                addToCart(product, quantity);
+                alert(`נוספו ${quantity} מוצרים מסוג ${product.name} לעגלת הקניות`);
             });
             
             // הצגת הפופ-אפ
